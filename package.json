@@ -1,0 +1,25 @@
+{
+  "name": "wasmdoc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xtuc/wasmdoc.git"
+  },
+  "author": "Sven Sauleau",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xtuc/wasmdoc/issues"
+  },
+  "bin": {
+    "wasmdoc": "index.js"
+  },
+  "homepage": "https://github.com/xtuc/wasmdoc#readme",
+  "dependencies": {
+    "webassembly-interpreter": "0.0.25"
+  }
+}
