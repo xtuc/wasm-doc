@@ -5,8 +5,10 @@ const generate = require("@babel/generator").default;
 const t = require("@babel/types");
 
 const globalInstanceIdentifier = t.identifier('instance');
+const globalMemoryIdentifier = t.identifier('memory');
+const globalTableIdentifier = t.identifier('table');
 
-const exportFuncTemplate = template(`
+const exportFuncTemplate = template.program(`
   export function NAME(ARGS) {
     if (typeof INSTANCE === "undefined") {
       throw new Error("Can not call function " + NAME.name + ", module not initialized.");
@@ -16,15 +18,29 @@ const exportFuncTemplate = template(`
   }
 `);
 
-const headerTemplate = template(`
+const headerTemplate = template.program(`
+  if (typeof WebAssembly === "undefined") {
+    throw new Error("WebAssembly not supported");
+  }
+
   let INSTANCE;
+
+  const MEMORY = new WebAssembly.Memory({initial: 100, limit: 1000});
+  const TABLE = new WebAssembly.Table({initial: 0, element: 'anyfunc'});
 `);
 
-const initFuncTemplate = template(`
-  export default function(opts) {
+const initFuncTemplate = template.program(`
+  export const memory = MEMORY;
+  export const table = TABLE;
 
-    if (typeof WebAssembly === "undefined") {
-      throw new Error("WebAssembly not supported");
+  export default function(opts = {env:{}}) {
+
+    if (typeof opts.env.memory === "undefined") {
+      opts.env.memory = MEMORY;
+    }
+
+    if (typeof opts.env.table === "undefined") {
+      opts.env.table = TABLE;
     }
 
     const importObject = opts;
@@ -104,12 +120,16 @@ function print(ast, {url}) {
 
   out += genTemplate(headerTemplate, {
     INSTANCE: globalInstanceIdentifier,
+    MEMORY: globalMemoryIdentifier,
+    TABLE: globalTableIdentifier,
   });
 
   out += "\n\n";
 
   out += genTemplate(initFuncTemplate, {
     URL: t.StringLiteral(url),
+    MEMORY: globalMemoryIdentifier,
+    TABLE: globalTableIdentifier,
   });
 
   out += "\n\n";
