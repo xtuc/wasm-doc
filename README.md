@@ -31,3 +31,13 @@ wasmgen -o md path/to/binary.wasm
 
 wasmgen -o markdown path/to/binary.wasm
 ```
+
+JavaScript:
+
+```sh
+wasmgen -o js --url http://xtuc.fr/foo.wasm path/to/binary.wasm
+
+// or
+
+wasmgen -o javascript --url http://xtuc.fr/foo.wasm path/to/binary.wasm
+```
