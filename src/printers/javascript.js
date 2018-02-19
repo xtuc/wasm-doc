@@ -33,7 +33,7 @@ const initFuncTemplate = template(`
     const instantiate = bytes => WebAssembly.instantiate(bytes, importObject);
     const getInstance = results => (instance = results.instance);
 
-    window.fetch(URL)
+    return window.fetch(URL)
       .then(getArrayBuffer)
       .then(instantiate)
       .then(getInstance);
