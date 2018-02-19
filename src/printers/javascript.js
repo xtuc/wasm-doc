@@ -5,8 +5,8 @@ const generate = require("@babel/generator").default;
 const t = require("@babel/types");
 
 const globalInstanceIdentifier = t.identifier('instance');
-const globalMemoryIdentifier = t.identifier('memory');
-const globalTableIdentifier = t.identifier('table');
+const globalMemoryIdentifier = t.identifier('_memory0');
+const globalTableIdentifier = t.identifier('_table0');
 
 const exportFuncTemplate = template.program(`
   export function NAME(ARGS) {
