@@ -93,6 +93,15 @@ function print(ast, {url}) {
 
   });
 
+  // Add comment
+  out += '/**\n';
+  out += ' * Autogenered by wasmgen -o js.\n';
+  out += ' *\n';
+  out += ' * DO NOT EDIT.\n';
+  out += ' */\n';
+
+  out += '\n';
+
   out += genTemplate(headerTemplate, {
     INSTANCE: globalInstanceIdentifier,
   });
