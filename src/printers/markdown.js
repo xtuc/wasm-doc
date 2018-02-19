@@ -49,25 +49,33 @@ function print(ast) {
 
   });
 
-  out += 'Imports:';
+  out += '## Imports:';
+
+  if (state.moduleImports.length > 0) {
+    out += '\n';
+
+    out += state.moduleImports.reduce((acc, e) => {
+      return acc + printImport(e) + '\n';
+    }, '');
+  } else {
+    out += " None";
+  }
+
   out += '\n';
 
-  out += state.moduleImports.reduce((acc, e) => {
-    return acc + printImport(e) + '\n';
-  }, '');
+  out += '## Exports:';
 
-  out += '\n';
+  if (state.moduleExports.length > 0) {
+    out += '\n';
 
-  out += 'Exports:';
-  out += '\n';
-
-  out += state.moduleExports.reduce((acc, e) => {
-    return acc + printExport(e, state.funcsTable) + '\n';
-  }, '');
+    out += state.moduleExports.reduce((acc, e) => {
+      return acc + printExport(e, state.funcsTable) + '\n';
+    }, '');
+  } else {
+    out += " None";
+  }
 
   return out;
 }
 
-module.exports = {
-  print
-};
+module.exports = print;
