@@ -1,3 +1,7 @@
+# This repo has been moved
+
+See https://github.com/xtuc/js-webassembly-interpreter/tree/master/packages/wasm-gen
+
 # wasmgen
 
 > Emit documentation/code for your WASM binary
